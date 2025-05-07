@@ -1,0 +1,46 @@
+/* Custom Colors */
+.bg-teal {
+  background-color: #008080 !important;
+}
+.text-teal {
+  color: #008080 !important;
+}
+
+/* Navbar Enhancements */
+.navbar {
+  padding: 0.75rem 0;
+}
+
+.navbar-brand {
+  font-size: 1.25rem;
+}
+
+.nav-link {
+  padding: 0.5rem 1rem;
+  transition: all 0.2s;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.dropdown-menu {
+  border: none;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+.avatar {
+  transition: all 0.2s;
+}
+
+.avatar:hover {
+  background-color: #008080 !important;
+  color: white !important;
+}
+
+/* Main Content Padding */
+main {
+  min-height: calc(100vh - 200px);
+}

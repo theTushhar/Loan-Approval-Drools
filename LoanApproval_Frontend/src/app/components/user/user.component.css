@@ -1,0 +1,41 @@
+/* Color Definitions */
+.bg-teal {
+  background-color: #008080 !important;
+}
+.text-teal {
+  color: #008080 !important;
+}
+.btn-teal {
+  background-color: #008080;
+  color: white;
+  border-color: #008080;
+}
+.btn-teal:hover {
+  background-color: #006666;
+  border-color: #006666;
+  color: white;
+}
+.btn-outline-teal {
+  color: #008080;
+  border-color: #008080;
+}
+.btn-outline-teal:hover {
+  background-color: #008080;
+  color: white;
+}
+
+/* Form Styling */
+.form-control:focus {
+  border-color: #008080;
+  box-shadow: 0 0 0 0.25rem rgba(0, 128, 128, 0.25);
+}
+
+/* Table Styling */
+.table-hover tbody tr:hover {
+  background-color: rgba(0, 128, 128, 0.05);
+}
+
+/* Card Styling */
+.card {
+  border-radius: 8px;
+}

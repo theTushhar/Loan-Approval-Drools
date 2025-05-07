@@ -1,0 +1,270 @@
+<div class="container mt-4">
+  <div class="row">
+    <!-- Left Panel for Create/Edit/Delete -->
+    <div class="col-lg-4 mb-4">
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white border-0">
+          <h3 class="mb-0 text-teal">
+            {{ user.id ? "Update User" : "Create User" }}
+          </h3>
+          <hr
+            class="mt-2 mb-3"
+            style="border-top: 2px solid #008080; opacity: 0.3"
+          />
+        </div>
+        <div class="card-body pt-0">
+          <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+            <!-- Name -->
+            <div class="mb-3">
+              <label for="name" class="form-label fw-semibold">Name</label>
+              <input
+                type="text"
+                id="name"
+                class="form-control"
+                [(ngModel)]="user.name"
+                name="name"
+                required
+                pattern="^[a-zA-Z\s]+$"
+                #name="ngModel"
+              />
+              <div
+                class="text-danger small mt-1"
+                *ngIf="name.invalid && name.touched"
+              >
+                <i class="fas fa-exclamation-circle me-1"></i> Name must be a
+                valid string and is required.
+              </div>
+            </div>
+
+            <!-- Age -->
+            <div class="mb-3">
+              <label for="age" class="form-label fw-semibold">Age</label>
+              <input
+                type="number"
+                id="age"
+                class="form-control"
+                [(ngModel)]="user.age"
+                name="age"
+                required
+                min="18"
+                max="80"
+                #age="ngModel"
+              />
+              <div
+                class="text-danger small mt-1"
+                *ngIf="age.invalid && age.touched"
+              >
+                <i class="fas fa-exclamation-circle me-1"></i> Age must be
+                between 18 and 80 and is required.
+              </div>
+            </div>
+
+            <!-- Monthly Income -->
+            <div class="mb-3">
+              <label for="monthlyIncome" class="form-label fw-semibold"
+                >Monthly Income (₹)</label
+              >
+              <div class="input-group">
+                <span class="input-group-text bg-light">₹</span>
+                <input
+                  type="number"
+                  id="monthlyIncome"
+                  class="form-control"
+                  [(ngModel)]="user.monthlyIncome"
+                  name="monthlyIncome"
+                  required
+                  min="0"
+                  #monthlyIncome="ngModel"
+                />
+              </div>
+              <div
+                class="text-danger small mt-1"
+                *ngIf="monthlyIncome.invalid && monthlyIncome.touched"
+              >
+                <i class="fas fa-exclamation-circle me-1"></i> Monthly Income is
+                required (enter 0 if N/A).
+              </div>
+            </div>
+
+            <!-- Credit Score -->
+            <div class="mb-3">
+              <label for="creditScore" class="form-label fw-semibold"
+                >Credit Score</label
+              >
+              <input
+                type="number"
+                id="creditScore"
+                class="form-control"
+                [(ngModel)]="user.creditScore"
+                name="creditScore"
+                required
+                min="0"
+                max="900"
+                #creditScore="ngModel"
+              />
+              <div class="progress mt-2" style="height: 6px">
+                <div
+                  class="progress-bar"
+                  [ngClass]="{
+                    'bg-success': user.creditScore >= 750,
+                    'bg-warning':
+                      user.creditScore >= 600 && user.creditScore < 750,
+                    'bg-danger': user.creditScore < 600
+                  }"
+                  [style.width]="(user.creditScore / 900) * 100 + '%'"
+                ></div>
+              </div>
+              <div
+                class="text-danger small mt-1"
+                *ngIf="creditScore.invalid && creditScore.touched"
+              >
+                <i class="fas fa-exclamation-circle me-1"></i> Credit Score must
+                be between 0 and 900.
+              </div>
+            </div>
+
+            <!-- Existing Loan Amount -->
+            <div class="mb-4">
+              <label for="existingLoanAmount" class="form-label fw-semibold"
+                >Existing Loan (₹)</label
+              >
+              <div class="input-group">
+                <span class="input-group-text bg-light">₹</span>
+                <input
+                  type="number"
+                  id="existingLoanAmount"
+                  class="form-control"
+                  [(ngModel)]="user.existingLoanAmount"
+                  name="existingLoanAmount"
+                  required
+                  min="0"
+                  #existingLoanAmount="ngModel"
+                />
+              </div>
+              <div
+                class="text-danger small mt-1"
+                *ngIf="existingLoanAmount.invalid && existingLoanAmount.touched"
+              >
+                <i class="fas fa-exclamation-circle me-1"></i> Existing Loan
+                Amount is required (enter 0 if N/A).
+              </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <button
+                type="button"
+                class="btn btn-outline-secondary me-md-2"
+                (click)="resetUserForm(userForm)"
+              >
+                <i class="fas fa-undo me-1"></i> Reset
+              </button>
+              <button
+                type="submit"
+                class="btn btn-teal"
+                [disabled]="!userForm.form.valid"
+              >
+                <i
+                  class="fas"
+                  [ngClass]="user.id ? 'fa-sync-alt' : 'fa-save'"
+                ></i>
+                {{ user.id ? " Update" : " Save" }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Panel for Listing Users -->
+    <div class="col-lg-8">
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white border-0">
+          <div class="d-flex justify-content-between align-items-center">
+            <h3 class="mb-0 text-teal">User List</h3>
+            <div class="input-group" style="width: 250px">
+              <span class="input-group-text bg-light border-end-0"
+                ><i class="fas fa-search"></i
+              ></span>
+              <input
+                type="text"
+                class="form-control border-start-0"
+                placeholder="Search users..."
+              />
+            </div>
+          </div>
+          <hr
+            class="mt-2 mb-3"
+            style="border-top: 2px solid #008080; opacity: 0.3"
+          />
+        </div>
+        <div class="card-body pt-0">
+          <div class="table-responsive">
+            <table class="table table-hover align-middle">
+              <thead class="table-light">
+                <tr>
+                  <th class="w-25">Name</th>
+                  <th>Age</th>
+                  <th>Income</th>
+                  <th>Credit Score</th>
+                  <th class="text-end">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let user of users">
+                  <td class="fw-semibold">{{ user.name }}</td>
+                  <td>{{ user.age }}</td>
+                  <td>₹{{ user.monthlyIncome | number }}</td>
+                  <td>
+                    <span
+                      class="badge rounded-pill py-1 px-2"
+                      [ngClass]="{
+                        'bg-success': user.creditScore >= 750,
+                        'bg-warning text-dark':
+                          user.creditScore >= 600 && user.creditScore < 750,
+                        'bg-danger': user.creditScore < 600
+                      }"
+                    >
+                      {{ user.creditScore }}
+                    </span>
+                  </td>
+                  <td class="text-end">
+                    <button
+                      class="btn btn-sm btn-outline-teal me-1"
+                      (click)="editUser(user)"
+                    >
+                      <i class="fas fa-edit me-1"></i> Edit
+                    </button>
+                    <button
+                      class="btn btn-sm btn-teal"
+                      (click)="viewLoanEligibility(user)"
+                    >
+                      <i class="fas fa-chart-line me-1"></i> Eligibility
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <nav aria-label="User pagination" class="mt-3">
+            <ul class="pagination justify-content-end">
+              <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true"
+                  >Previous</a
+                >
+              </li>
+              <li class="page-item active">
+                <a class="page-link" href="#">1</a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,195 @@
+<div class="container mt-4" *ngIf="loanDetails">
+  <h2 class="text-center mb-4" style="color: #008080; font-weight: 600">
+    Loan Eligibility Details
+  </h2>
+
+  <div class="row">
+    <!-- Left Section: Loan Details -->
+    <div class="col-md-6 mb-4">
+      <div class="card border-0 shadow-lg">
+        <div class="card-header bg-white border-0 pb-0">
+          <div class="d-flex justify-content-between align-items-center">
+            <h4 class="mb-0" style="color: #008080">Application Summary</h4>
+            <button class="btn btn-outline-teal btn-sm" (click)="goBack()">
+              <i class="fas fa-arrow-left me-1"></i> Back
+            </button>
+          </div>
+          <hr
+            class="mt-2 mb-3"
+            style="border-top: 2px solid #008080; opacity: 0.3"
+          />
+        </div>
+        <div class="card-body pt-0">
+          <div class="table-responsive">
+            <table class="table table-hover align-middle">
+              <tbody>
+                <tr class="bg-light-teal">
+                  <th class="w-40">User Name</th>
+                  <td>{{ loanDetails.user.name }}</td>
+                </tr>
+                <tr>
+                  <th>Age</th>
+                  <td>{{ loanDetails.user.age }}</td>
+                </tr>
+                <tr>
+                  <th>Income</th>
+                  <td class="fw-semibold">
+                    ₹{{ loanDetails.user.monthlyIncome }}
+                  </td>
+                </tr>
+                <tr>
+                  <th>Credit Score</th>
+                  <td>
+                    <span
+                      class="badge rounded-pill"
+                      [ngClass]="{
+                        'bg-success': loanDetails.user.creditScore >= 750,
+                        'bg-warning text-dark':
+                          loanDetails.user.creditScore >= 600 &&
+                          loanDetails.user.creditScore < 750,
+                        'bg-danger': loanDetails.user.creditScore < 600
+                      }"
+                    >
+                      {{ loanDetails.user.creditScore }}
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Existing Loan</th>
+                  <td>₹{{ loanDetails.user.existingLoanAmount }}</td>
+                </tr>
+                <tr class="bg-light-teal">
+                  <th>Loan Amount</th>
+                  <td class="fw-bold" style="color: #008080">
+                    ₹{{ loanDetails.loanAmount }}
+                  </td>
+                </tr>
+                <tr>
+                  <th>Loan Type</th>
+                  <td>
+                    <span class="badge bg-teal text-white">{{
+                      loanDetails.loanType
+                    }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Status</th>
+                  <td>
+                    <span
+                      class="badge rounded-pill py-1 px-3"
+                      [ngClass]="{
+                        'bg-success': loanDetails.status === 'Approved',
+                        'bg-danger': loanDetails.status === 'Rejected',
+                        'bg-warning text-dark': loanDetails.status === 'Pending'
+                      }"
+                    >
+                      {{ loanDetails.status }}
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Status Reason</th>
+                  <td class="fst-italic">{{ loanDetails.statusReason }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Section: Guidelines -->
+    <div class="col-md-6">
+      <div class="card border-0 shadow-lg h-100">
+        <div class="card-header bg-white border-0">
+          <h4 style="color: #008080">Eligibility Guidelines</h4>
+          <hr
+            class="mt-2 mb-3"
+            style="border-top: 2px solid #008080; opacity: 0.3"
+          />
+        </div>
+        <div class="card-body">
+          <div class="alert alert-teal bg-light-teal border-teal mb-4">
+            <i class="fas fa-info-circle me-2"></i> Here are some guidelines to
+            improve your loan eligibility
+          </div>
+
+          <div class="d-flex mb-3">
+            <div class="me-3">
+              <div class="icon-circle bg-teal text-white">
+                <i class="fas fa-rupee-sign"></i>
+              </div>
+            </div>
+            <div>
+              <h6 class="mb-1" style="color: #008080">
+                High Income Applicants
+              </h6>
+              <p class="mb-0 small">
+                ₹15,000+ with credit score above 750 qualifies for larger loans.
+              </p>
+            </div>
+          </div>
+
+          <div class="d-flex mb-3">
+            <div class="me-3">
+              <div class="icon-circle bg-teal text-white">
+                <i class="fas fa-user-tie"></i>
+              </div>
+            </div>
+            <div>
+              <h6 class="mb-1" style="color: #008080">Middle-Class Income</h6>
+              <p class="mb-0 small">
+                ₹4,000 - ₹8,000 with good credit score can get personal loans.
+              </p>
+            </div>
+          </div>
+
+          <div class="d-flex mb-3">
+            <div class="me-3">
+              <div class="icon-circle bg-teal text-white">
+                <i class="fas fa-exclamation-triangle"></i>
+              </div>
+            </div>
+            <div>
+              <h6 class="mb-1" style="color: #008080">Low Credit Score</h6>
+              <p class="mb-0 small">
+                Credit score below 500 or high existing loans may lead to
+                rejection.
+              </p>
+            </div>
+          </div>
+
+          <div class="d-flex mb-3">
+            <div class="me-3">
+              <div class="icon-circle bg-teal text-white">
+                <i class="fas fa-user-plus"></i>
+              </div>
+            </div>
+            <div>
+              <h6 class="mb-1" style="color: #008080">First-Time Applicants</h6>
+              <p class="mb-0 small">
+                Good credit (600+) without existing loans qualifies for smaller
+                loans.
+              </p>
+            </div>
+          </div>
+
+          <div class="d-flex">
+            <div class="me-3">
+              <div class="icon-circle bg-teal text-white">
+                <i class="fas fa-user-clock"></i>
+              </div>
+            </div>
+            <div>
+              <h6 class="mb-1" style="color: #008080">Older Users</h6>
+              <p class="mb-0 small">
+                Age above 60 with good credit score is eligible for personal
+                loans.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

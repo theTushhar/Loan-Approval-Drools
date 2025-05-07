@@ -1,0 +1,109 @@
+package rules;
+
+import com.infoorigin.loanApprovalBackend.model.User;
+import com.infoorigin.loanApprovalBackend.model.LoanApplication;
+
+rule "High Income Moderate Credit Score"
+    activation-group "loan-processing"
+when
+    $user: User(monthlyIncome > 10000, creditScore > 600 && creditScore <= 750)
+    $loan: LoanApplication()
+then
+    $loan.setLoanAmount(75000.0);
+    $loan.setLoanType("PERSONAL");
+    $loan.setStatus("APPROVED");
+    $loan.setStatusReason("High income with moderate credit score");
+    System.out.println("Loan Approved for User: " + $user.getName());
+end
+
+
+rule "Existing Loan Greater than Income"
+ activation-group "loan-processing"
+    when
+        $user: User(existingLoanAmount > monthlyIncome)
+        $loan: LoanApplication()
+    then
+        $loan.setLoanAmount(0.0);
+        $loan.setLoanType("N/A");
+        $loan.setStatus("REJECTED");
+        $loan.setStatusReason("Existing loan amount exceeds monthly income");
+        System.out.println("Loan Rejected for User: " + $user.getName());
+end
+
+rule "Senior Citizen With Good Credit"
+ activation-group "loan-processing"
+    when
+        $user: User(age > 60, creditScore > 700)
+        $loan: LoanApplication()
+    then
+        $loan.setLoanAmount(30000.0);
+        $loan.setLoanType("PERSONAL");
+        $loan.setStatus("APPROVED");
+        $loan.setStatusReason("Senior citizen with good credit score");
+        System.out.println("Loan Approved for User: " + $user.getName());
+end
+
+rule "Home Loan For High Earners"
+ activation-group "loan-processing"
+    when
+        $user: User(monthlyIncome > 25000, creditScore > 750)
+        $loan: LoanApplication()
+    then
+        $loan.setLoanAmount(200000.0);
+        $loan.setLoanType("HOME");
+        $loan.setStatus("APPROVED");
+        $loan.setStatusReason("Eligible for Home Loan with high income and credit score");
+        System.out.println("Home Loan Approved for User: " + $user.getName());
+end
+
+rule "Low Credit Score With High Existing Loan"
+ activation-group "loan-processing"
+    when
+        $user: User(creditScore < 500, existingLoanAmount > 10000)
+        $loan: LoanApplication(user == $user)
+    then
+        $loan.setLoanAmount(0.0);
+        $loan.setLoanType("N/A");
+        $loan.setStatus("REJECTED");
+        $loan.setStatusReason("Low credit score with high existing loans");
+        System.out.println("Loan Rejected for User: " + $user.getName());
+end
+
+rule "Low Income Rejection"
+ activation-group "loan-processing"
+    when
+        $user: User(monthlyIncome < 2000)
+        $loan: LoanApplication()
+    then
+        $loan.setLoanAmount(0.0);
+        $loan.setLoanType("N/A");
+        $loan.setStatus("REJECTED");
+        $loan.setStatusReason("Income too low for any loan");
+        System.out.println("Loan Rejected for User: " + $user.getName());
+end
+
+rule "First-Time Loan"
+ activation-group "loan-processing"
+    when
+        $user: User(existingLoanAmount == 0, creditScore > 600)
+        $loan: LoanApplication()
+    then
+        $loan.setLoanAmount(15000.0);
+        $loan.setLoanType("PERSONAL");
+        $loan.setStatus("APPROVED");
+        $loan.setStatusReason("First-time loan applicant with good credit score");
+        System.out.println("Loan Approved for First-Time User: " + $user.getName());
+end
+
+rule "Default Loan Eligibility"
+activation-group "loan-processing"
+    salience -100
+    when
+        $loan: LoanApplication()
+    then
+        $loan.setLoanAmount(0.0);
+        $loan.setLoanType("N/A");
+        $loan.setStatus("NEEDS IMPROVEMENT");
+        $loan.setStatusReason("User is not eligible for a loan. Needs Improvement in income and credit score.");
+        System.out.println("Default rule executed: User is not eligible for loan. Improving income and credit score will lead to an offer.");
+end

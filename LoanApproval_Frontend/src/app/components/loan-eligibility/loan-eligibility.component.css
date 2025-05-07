@@ -1,0 +1,54 @@
+/* Color Definitions */
+.bg-teal {
+  background-color: #008080 !important;
+}
+.text-teal {
+  color: #008080 !important;
+}
+.border-teal {
+  border-color: #008080 !important;
+}
+.bg-light-teal {
+  background-color: rgba(0, 128, 128, 0.1) !important;
+}
+.alert-teal {
+  color: #008080;
+  background-color: rgba(0, 128, 128, 0.1);
+  border-color: rgba(0, 128, 128, 0.3);
+}
+.btn-outline-teal {
+  color: #008080;
+  border-color: #008080;
+}
+.btn-outline-teal:hover {
+  color: white;
+  background-color: #008080;
+}
+
+/* Custom Elements */
+.icon-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shadow-lg {
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.08) !important;
+}
+
+.table th {
+  width: 40%;
+  font-weight: 500;
+  color: #555;
+}
+
+.table td {
+  font-weight: 400;
+}
+
+.w-40 {
+  width: 40% !important;
+}
