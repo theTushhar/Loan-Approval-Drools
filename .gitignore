@@ -67,6 +67,5 @@ application-prod.properties
 
 # Documentation
 /docs/
-*.pdf
 *.doc
 *.docx
