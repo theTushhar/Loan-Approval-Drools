@@ -2,6 +2,8 @@
 
 A full-stack application with Angular frontend and Spring Boot backend that determines loan eligibility using Drools rules engine.
 
+[View Project Documentation](./Design_and_Analysis.pdf)
+
 ## Prerequisites
 
 - Node.js (v16+) & npm (for Angular)
@@ -25,13 +27,13 @@ loan-eligibility-system/
 1. Install MySQL and start the server
 2. Create a new database:
    ```sql
-   CREATE DATABASE loan_eligibility;
+   CREATE DATABASE loanapproval;
    ```
 3. Update Spring Boot configuration:
    - Open `backend/src/main/resources/application.properties`
    - Modify these values:
      ```properties
-     spring.datasource.url=jdbc:mysql://localhost:3306/loan_eligibility
+     spring.datasource.url=jdbc:mysql://localhost:3306/loanapproval
      spring.datasource.username=your_username
      spring.datasource.password=your_password
      ```
